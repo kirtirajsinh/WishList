@@ -1,10 +1,12 @@
 import React, {useRef} from 'react'
 import { fetchGraphQL } from '../helperFunctions'
 import { SIGN_IN_BUSINESS } from '../schemas'
+import { useNavigate } from "react-router-dom";
 
 const SignIn = (props) => {
     const userNameRef = useRef()
     const passwordRef = useRef()
+    let navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -16,6 +18,7 @@ const SignIn = (props) => {
         console.log(businessRaw.data.business[0])
         if (businessRaw.data) {
           props.setBusiness(businessRaw.data.business[0])
+          navigate("/dashboard")
         }
     }
         

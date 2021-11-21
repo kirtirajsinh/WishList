@@ -63,3 +63,27 @@ query MyQuery($password: String = "", $username: String = "") {
 //   "password": "secret",
 //   "username": "Apu"
 // }
+
+export const CREATE_OFFER = `
+mutation MyMutation($businessId: uuid = "", $deliveryDate: String = "", $price: Int = 10, $wishlistitemId: uuid = "") {
+  insert_offers(objects: {businessId: $businessId, deliveryDate: $deliveryDate, price: $price, wishlistitemId: $wishlistitemId}) {
+    returning {
+      business {
+        businessName
+      }
+      accepted
+      deliveryDate
+      price
+      wishlistItem {
+        request
+      }
+    }
+  }
+}
+`
+// {
+//   "businessId": "f0aad200-9d41-4517-887f-751da7eb4ac4",
+//   "deliveryDate": "10/20/20",
+//   "price": 10,
+//   "wishlistitemId": "72931bf1-f35f-44ab-9009-e43b571017e8"
+// }

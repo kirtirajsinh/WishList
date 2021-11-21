@@ -1,57 +1,51 @@
 import React from 'react'
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+// import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import GoogleMapReact from 'google-map-react';
 
 const LoadingContainer = (props) => (
   <div>Fancy loading container!</div>
 )
 
 const MapContainer = (props) => {
-  
+  console.log(props.wishlistItems);
 
   const mapStyles = {
     width: '50%',
     height: '50%',
   };
-
   const WishlistItem = (props) => {
     return (
-      <Marker
-        // title={props.item.item}
-        position={{ lat: 29, lng: -81 }}
-      />
+      <div onClick={() => props.setSelectedWishlistItem(props.item)} className="markerContainer">
+        <h1>{props.item.item}</h1>
+      </div>
     )
   }
-    // string to int
-  console.log(props.wishlistItems[0]);
   return (
-    <Map
-      google={props.google}
-      zoom={3}
-      style={mapStyles}
-      initialCenter={{
-        // lat: parseInt(props.business.lat),
-        // lng: parseInt(props.business.lng)
-        lat: 29.646055,
-        lng: -82.337385
-      }}
-    >
-      <Marker
-        // title={props.item.item}
-        position={{ lat: 29, lng: -81 }}
-      />
-      <WishlistItem item={props.wishlistItems[0]} />
-      {/* {props.wishlistItems.map((item, index) => {
-        return (
-          <WishlistItem item={item} key={index} />
-        )
-      })} */}
-    </Map>
+    <div style={{ height: '100vh', width: '100%' }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: "AIzaSyDZEBQiysU7KhzaAAezVVlgyN1tnNC52fQ" }}
+        defaultCenter={{ lat: props.business.lat, lng: props.business.lng }}
+        defaultZoom={16}
+      >
+        {props.wishlistItems.map((item, index) => {
+          return (
+            <WishlistItem
+              lat={item.lat}
+              lng={item.lng}
+              setSelectedWishlistItem={props.setSelectedWishlistItem}
+              item={item}
+            />
+          )
+        })}
+        <div lat={props.business.lat} lng={props.business.lng} className="mainMarker">
+          <h1>{props.business.businessName}</h1>
+        </div>
+      </GoogleMapReact>
+    </div>
+
 
   )
 }
 
 
-export default GoogleApiWrapper({
-  apiKey: ("AIzaSyDZEBQiysU7KhzaAAezVVlgyN1tnNC52fQ"),
-  LoadingContainer: LoadingContainer
-})(MapContainer);
+export default MapContainer;

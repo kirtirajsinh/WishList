@@ -7,7 +7,7 @@ const Nav = () => {
             <div className="max-w-6xl mx-auto px-4">
             <div className="flex flex-row justify-between">
                     <div className="flex space-x-4">
-                        <div><Link to="#" className="text-xl text-white font-bold">WishList </Link></div>
+                        <div><Link to="#" className="text-xl text-white font-bold">Wishlist </Link></div>
                         <div className="hidden md:flex items-center space-x-1">
                         <Link to="/dashboard" className="text-l text-white hover:text-gray-900">DashBoard</Link>
                         <Link to="/business" className="text-l text-white hover:text-gray-900">Business</Link>
