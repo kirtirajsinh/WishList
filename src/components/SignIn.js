@@ -29,7 +29,7 @@ const SignIn = (props) => {
             
                 <div className="min-h-screen flex items-center justify-center " >
                     <div className="bg-white p-16 rounded shadow-2xl w-2/3  ">
-                        <h2 className="mb-3 font-bold text-purple-600">Sign-In</h2>
+                        <h2 style={{fontSize:"30px"}} className="mb-3 font-bold text-purple-600">Wishlist</h2>
                     <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
                     <label htmlFor="userName">userName:</label>
