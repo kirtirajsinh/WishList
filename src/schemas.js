@@ -4,6 +4,7 @@ query MyQuery($categoryName: String = "") {
     id
     lat
     lng
+    item
     request
     category {
       id
@@ -28,6 +29,12 @@ query MyQuery($businessId: uuid = "") {
       price
       wishlistItem {
         id
+        customer {
+          username
+        }
+        item
+        lat
+        lng
       }
     }
   }
@@ -35,4 +42,24 @@ query MyQuery($businessId: uuid = "") {
 `
 // {
 //   "businessId": "f0aad200-9d41-4517-887f-751da7eb4ac4"
+// }
+
+export const SIGN_IN_BUSINESS = `
+query MyQuery($password: String = "", $username: String = "") {
+  business(where: {password: {_eq: $password}, username: {_eq: $username}}) {
+    businessName
+    id
+    category {
+      name
+      id
+    }
+    lat
+    lng
+    username
+  }
+}
+`
+// {
+//   "password": "secret",
+//   "username": "Apu"
 // }

@@ -1,48 +1,22 @@
 import React, {useRef} from 'react'
+import { fetchGraphQL } from '../helperFunctions'
+import { SIGN_IN_BUSINESS } from '../schemas'
 
-const SignIn = () => {
+const SignIn = (props) => {
     const userNameRef = useRef()
     const passwordRef = useRef()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(userNameRef.current.value, passwordRef.current.value)
-        const fetchGraphQL = async (
-            schema,
-            variables = {},
-          ) => {
-            const graphql = JSON.stringify({
-              query: schema,
-              variables,
-            });
-            const requestOptions = {
-              method: "POST",
-              headers: {
-                'content-type': 'application/json',
-                'x-hasura-admin-secret': `92vDCAHE5MuUIUMtkNUQsCB7Hv9g30EGiyarlYsX9HvAOGOBrS2I2KBwyIanimSU`,
-              },
-              body: graphql,
-            };
-            const database_url = "https://accurate-goshawk-85.hasura.app/v1/graphql";
-            const res = await fetch(database_url, requestOptions).then((res) =>
-              res.json()
-            );
-            
-            return res;
-          };
-        const SIGN_IN_BUSINESS = `
-query MyQuery($password: String = "", $username: String = "") {
-  business(where: {password: {_eq: $password}, username: {_eq: $username}}) {
-    businessName
-    id
-  }
-}
-`
-        const signIn = await fetchGraphQL(SIGN_IN_BUSINESS,  {
-            "password": "secret",
-            "username": "Apu"
-          })
-         console.log(signIn.data.business)
+        const businessRaw = await fetchGraphQL(SIGN_IN_BUSINESS, {
+            username: userNameRef.current.value,
+            password: passwordRef.current.value
+        })
+        console.log(businessRaw);
+        console.log(businessRaw.data.business[0])
+        if (businessRaw.data) {
+          props.setBusiness(businessRaw.data.business[0])
+        }
     }
         
 
