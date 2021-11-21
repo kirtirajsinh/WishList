@@ -16,15 +16,7 @@ const DashBoard = () => {
         // vvvvvv places the object into the "offers" state 
         setOffers(offersRaw.data.business[0].offers)
     }, [])
-    const data ={
-        category:'Groccery',
-        items:[
-            'Applesx6',
-            'Vegetables',
-           'Milk',
-            'oil'
-        ]
-    }
+    
     return (
         <div>
             <Nav />
@@ -32,10 +24,14 @@ const DashBoard = () => {
             <div className=" flex flex-row  space-x-5 mx-12 mt-7 h-1/2">
                 <div className="border border-black h-96  w-1/3" >
                     <h3 className="text-xl">WishList</h3>
-                    <div className="border border-black w-max h-1/2 mx-2 content-between">
-                        {
-                            data.items.join(',')    
-                        }
+                    <div className="w-max h-1/2 mx-2 content-between">
+                    {offers.map((offer, index) => {
+                            return(
+                                <div key={index} className="flex flex-row my-2 border border-black space-x-2">
+                                   <p>{offer.wishlistItem.customer.username}<br />Item:{offer.wishlistItem.item}<br /> Price:{offer.price}<br />latitude: {offer.wishlistItem.lat}, Longitude:{offer.wishlistItem.lng} </p>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
                 <div className="border border-black w-1/3"><h3 className="text-xl">Orders</h3></div>
